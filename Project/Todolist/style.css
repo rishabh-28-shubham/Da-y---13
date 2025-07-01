@@ -60,3 +60,36 @@ ul{
     list-style: none;
     padding: 0;
 }
+
+li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.compeleted{
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.task-actions button {
+    background-color: transparent;
+    color: #28a745;
+    margin-right: 10px;
+}
+
+.task-actions button:hover{
+    color: #1e7e34;
+}
+
+.task-actions button:last-child{
+    color: #dc3545;
+}
+
+.task-actions button:last-child:hover{
+    color: #a71d2a;
+}
