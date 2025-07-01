@@ -1,0 +1,95 @@
+//store list of task
+
+// DOMContentLoaded - Why we are using this?
+document.addEventListener("DOMContentLoaded", LoadTask);
+
+
+// const taskadded = document.getElementById(taskadded);
+// console.log(taskadded);
+// taskadded.addEventListener('click',addtask)
+
+function addtask() {
+    const taskInput = document.getElementById(taskInput);
+    const taskText = taskInput.value.trim();
+
+    if (taskText == '') {
+        alert("Please Enter a Task")
+    }
+    
+    const task = {
+        id: Date.now(), //why and what is the fromat for Date.now()?
+        text: taskText,
+        completed: false
+    }
+
+    //save the task to local-Storage
+    saveTask(task);
+
+    //adding the task to DOM
+    renderTask(task);
+
+    //for clearing the task Input filed
+    taskInput.value = '';//assiging an empty string
+}
+
+function renderTask(task) {
+    const taskList = document.getElementById('taskList');
+    const li = document.createElement('li')
+    
+    li.dataset.id = task.id;
+
+    li.innerHTML = `
+    <span class = "${task.compeleted} ?'completed' : '' ">
+    ${task.text}
+    </span>
+    <div class = "task-actions">
+
+    <button onclick = "toggle(${task.id})">
+    ${task.compeleted ? 'undo' : 'Completed'}
+    </button>
+
+    <button onclick = "deleteTask(${task.id})">
+    Delete
+    </button>
+    </div>
+    `;
+    taskList.appendChild(li);
+}
+
+// save function
+function saveTask(task) {
+    let tasks = getTasks();
+    tasks.push(task)
+    localStorage.setItem('task', JSON.stringify(tasks));
+}
+
+// defining Get function
+function getTasks() {
+    return JSON.parse(localStorage.getItem('tasks')) || [];
+}
+
+// Loading the Task
+function LoadTask() {
+    const tasks = getTasks();
+    tasks.forEach(task => renderTask(task));
+}
+
+// toggle button function
+function toggleTask(id) {
+    let tasks = getTasks();
+    tasks = tasks.map(task => {
+        if (task.id == id) {
+            task.compeleted = !task.compeleted;
+        }
+        return task;
+    });
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    
+    refreshTaskList();
+}
+
+function refreshTaskList() {
+    const taskList = document.getElementById('taskList');
+    taskList.innerHtml = '';
+    LoadTask();
+}
