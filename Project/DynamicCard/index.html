@@ -312,7 +312,7 @@
 
                 document.querySelector('.avatar').src = data.avatar_url
                 document.getElementById('name').textContent = data.name || data.login;
-                document.getElementById('joined').textContent = `Joined : ${new Date(data.createad_at).toISOString().split('T')[0]}`
+                document.getElementById('joined').textContent = `Joined: ${new Date(data.created_at).toISOString().split('T')[0]}`
                 document.getElementById('bio').textContent = data.bio || "No bio Available"
                 document.getElementById('followers').textContent = data.followers
                 document.getElementById('repos').textContent = data.public_repos
